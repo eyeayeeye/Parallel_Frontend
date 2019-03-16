@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./chatList.css";
-import { Button } from "antd";
 import { List, message, Avatar, Spin } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
 import { Badge } from "antd";
+import { Modal, Button } from "antd";
+import { Form, Input, Icon } from "antd";
 
 class ChatList extends Component {
   state = {
@@ -34,7 +35,11 @@ class ChatList extends Component {
       { name: "eye", message: "eyeayeeye", unseenCount: 30 }
     ],
     loading: false,
-    hasMore: true
+    hasMore: true,
+    visibleCreateGroup: false,
+    confirmLoadingJoinGroup: false,
+    visibleJoinGroup: false,
+    confirmLoadingJoinGroup: false
   };
   //   componentDidMount() {
   //     this.fetchData(res => {
@@ -43,6 +48,66 @@ class ChatList extends Component {
   //       });
   //     });
   //   }
+
+  showModalCreateGroup = () => {
+    this.setState({
+      visibleCreateGroup: true
+    });
+  };
+
+  handleOkCreateGroup = () => {
+    this.setState({
+      ModalCreateGroup: "The modal will be closed after two seconds",
+      confirmLoadingCreateGroup: true
+    });
+    setTimeout(() => {
+      this.setState({
+        visibleCreateGroup: false,
+        confirmLoadingCreateGroup: false
+      });
+    }, 2000);
+  };
+
+  handleCancelCreateGroup = () => {
+    console.log("Clicked cancel button");
+    this.setState({
+      visibleCreateGroup: false
+    });
+  };
+
+  onChangeCreateGroup = () => {
+    //send something
+  };
+
+  showModalJoinGroup = () => {
+    this.setState({
+      visibleJoinGroup: true
+    });
+  };
+
+  handleOkJoinGroup = () => {
+    this.setState({
+      ModalJoinGroup: "The modal will be closed after two seconds",
+      confirmLoadingJoinGroup: true
+    });
+    setTimeout(() => {
+      this.setState({
+        visibleJoinGroup: false,
+        confirmLoadingJoinGroup: false
+      });
+    }, 2000);
+  };
+
+  handleCancelJoinGroup = () => {
+    console.log("Clicked cancel button");
+    this.setState({
+      visibleJoinGroup: false
+    });
+  };
+
+  onChangeJoinGroup = () => {
+    //send something
+  };
 
   handleInfiniteOnLoad = () => {
     let data = this.state.data;
@@ -73,10 +138,14 @@ class ChatList extends Component {
         <div className="chat-bar">
           <div style={{ width: "20%" }} />
           <div className="create-group-button">
-            <div className="button">Create Group</div>
+            <div className="button" onClick={this.showModalCreateGroup}>
+              Create Group
+            </div>
           </div>
           <div className="join-button">
-            <div className="button">Join Group</div>
+            <div className="button" onClick={this.showModalJoinGroup}>
+              Join Group
+            </div>
           </div>
           <div className="logout-button">
             <div className="button">Logout</div>
@@ -97,7 +166,11 @@ class ChatList extends Component {
                 <List.Item key={item.id}>
                   <List.Item.Meta
                     avatar={
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                      <Avatar
+                        style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+                      >
+                        U
+                      </Avatar>
                     }
                     title={item.name}
                     description={item.message}
@@ -117,6 +190,31 @@ class ChatList extends Component {
             </List>
           </InfiniteScroll>
         </div>
+        <Modal
+          title="Create Group"
+          visible={this.state.visibleCreateGroup}
+          onOk={this.handleOkCreateGroup}
+          confirmLoading={this.state.confirmLoadingCreateGroup}
+          onCancel={this.handleCancelCreateGroup}
+        >
+          <Input
+            placeholder="Enter Group Name"
+            onChange={this.onChangeCreateGroup}
+          />
+        </Modal>
+
+        <Modal
+          title="Join Group"
+          visible={this.state.visibleJoinGroup}
+          onOk={this.handleOkJoinGroup}
+          confirmLoading={this.state.confirmLoadingJoinGroup}
+          onCancel={this.handleCancelJoinGroup}
+        >
+          <Input
+            placeholder="Enter Group ID"
+            onChange={this.onChangeJoinGroup}
+          />
+        </Modal>
       </div>
     );
   }
