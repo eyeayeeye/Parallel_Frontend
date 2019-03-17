@@ -1,0 +1,70 @@
+.chat-window-container {
+  width: 70%;
+  height: 100vh;
+  border-left: solid;
+  border-width: 1px;
+  border-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-box {
+  padding: 10px 10px 10px 10px;
+  height: 8vh;
+}
+
+.chat-box .ant-input-affix-wrapper {
+  height: 100%;
+  width: 100%;
+  border-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-box .ant-input-affix-wrapper:hover,
+.ant-input:not(.ant-input-disabled) {
+  box-shadow: none;
+  border-color: #d9d9d9 !important;
+}
+
+.chat-box .ant-input-affix-wrapper .ant-input-suffix {
+  right: 0px;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-box .ant-input:focus,
+.ant-input:hover {
+  box-shadow: none;
+  border-color: #ab1111 !important;
+}
+
+.chat-box .ant-btn-primary {
+  width: 100%;
+  height: 100%;
+  background: #ab1111;
+  border-color: #ab1111;
+}
+
+.chat-box .ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background: #ab1111 !important;
+  border-color: #ab1111 !important;
+}
+
+/* .chat-box .ant-btn:after {
+  animation: 0s !important;
+} */
+
+/* .chat-box .ant-btn:hover,
+.ant-btn:focus {
+  background: #ab1111 !important;
+  border-color: #ab1111 !important;
+} */
+
+.del-devider .ant-list-split .ant-list-item {
+  border-bottom: 0px;
+}
