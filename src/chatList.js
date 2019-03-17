@@ -39,9 +39,12 @@ class ChatList extends Component {
       // this.updateChat(data);
     });
     this.socket.on("addNewChat", data => {
-      // console.log(data);
-      this.setState({ data: [data, ...this.state.data] });
-      // console.log(this.state.data);
+      console.log(data);
+      const filtered = this.state.data.filter(
+        group => group.groupid !== data.groupid
+      );
+      this.setState({ data: [data, ...filtered] });
+      console.log(this.state.data);
 
       // this.updateChat(data);
     });
@@ -79,8 +82,8 @@ class ChatList extends Component {
 
     // this.socket.emit("addNewChat", {
     //   username: this.state.uid,
-    //   message: "อายสวยจริ๊ง",
-    //   groupid: 555
+    //   message: "เจด6",
+    //   groupid: 1
     // });
 
     setTimeout(() => {
