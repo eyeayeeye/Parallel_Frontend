@@ -53,27 +53,40 @@ class chatMessage extends Component {
               }}
             >
               <Avatar icon="user" />
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                width: '100%'
+              }}
+            >
               <div
                 style={{
                   textAlign: 'center',
                   paddingLeft: '10px',
-                  paddingRight: '10px'
+                  paddingRight: '10px',
+                  marginBottom: '10px'
                 }}
               >
                 {this.props.name}
               </div>
-            </div>
-            <div
-              style={{
-                maxWidth: '40%',
-                borderRadius: '20px',
-                backgroundColor: '#b13d3d',
-                color: 'white',
-                textAlign: 'left',
-                padding: '15px'
-              }}
-            >
-              {this.props.msg}
+
+              <div
+                style={{
+                  maxWidth: '40%',
+                  borderRadius: '20px',
+                  backgroundColor: '#b13d3d',
+                  color: 'white',
+                  textAlign: 'left',
+                  padding: '15px',
+                  marginLeft: '10px'
+                }}
+              >
+                {this.props.msg}
+              </div>
             </div>
           </div>
         )}

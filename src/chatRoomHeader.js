@@ -22,7 +22,11 @@ class chatRoomHeader extends Component {
             <div style={{ fontSize: '12px' }}> group id</div>
           </div>
         </div>
-        <Button className="leave-btn" type="primary">
+        <Button
+          className="leave-btn"
+          type="primary"
+          onClick={() => this.props.leaveGroup()}
+        >
           leave group
         </Button>
       </div>

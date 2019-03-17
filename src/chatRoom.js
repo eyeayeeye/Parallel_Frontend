@@ -17,6 +17,7 @@ const fakeDataUrl =
 class chatRoom extends Component {
   state = {
     empty: false,
+    input: '',
     user: 'mild',
     data: [
       {
@@ -40,18 +41,13 @@ class chatRoom extends Component {
     loading: false,
     hasMore: true
   };
-
-  // componentDidMount() {
-  //   // this.fetchData(res => {
-  //   //   this.setState({
-  //   //     data: res.results
-  //   //   });
-  //   // });
-  // }
-
-  // this.socket = io("http://localhost:8000");
+  socket = io('http://localhost:8000');
 
   componentDidMount() {
+    this.socket.on('getAllChat', data => {
+      // console.log(data);
+      this.setState({ data: data });
+    });
     this.scrollToBottom();
   }
 
@@ -71,12 +67,23 @@ class chatRoom extends Component {
     // });
   };
 
+  sendText = () => {
+    console.log(this.state.input);
+    this.scrollToBottom();
+
+    this.setState({ input: '' });
+  };
+
+  leaveGroup = gid => {
+    this.setState({ empty: true });
+  };
+
   handleInfiniteOnLoad = () => {
     let data = this.state.data;
     this.setState({
       loading: true
     });
-    if (data.length > 5) {
+    if (data.length > 14) {
       // message.warning('Infinite List loaded all');
       this.setState({
         hasMore: false,
@@ -95,7 +102,9 @@ class chatRoom extends Component {
 
   scrollToBottom() {
     const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    if (messagesContainer != null) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
   }
 
   render() {
@@ -113,22 +122,11 @@ class chatRoom extends Component {
           />
         ) : (
           <div>
-            <ChatRoomHeader />
-            {/* <div
-              style={{
-                height: '82vh',
-                margin: '20px 20px 20px 20px'
-              }}
-            >
-              <ChatMessage />
-            </div> */}
+            <ChatRoomHeader leaveGroup={this.leaveGroup} />
             <div
               className="demo-infinite-container del-devider"
               style={{
                 height: '82vh',
-                // display: 'flex',
-                // justifyContent: 'center',
-                // alignItems: 'center',
                 overflow: 'scroll'
               }}
               ref={el => {
@@ -164,7 +162,21 @@ class chatRoom extends Component {
             </div>
 
             <div className="chat-box">
-              <Input suffix={<Button type="primary">send</Button>} />
+              <Input
+                placeholder="Type your message here..."
+                value={this.state.input}
+                onPressEnter={() => this.sendText()}
+                onChange={e => this.setState({ input: e.target.value })}
+                suffix={
+                  <Button
+                    type="primary"
+                    allowClear={true}
+                    onClick={() => this.sendText()}
+                  >
+                    send
+                  </Button>
+                }
+              />
             </div>
           </div>
         )}
