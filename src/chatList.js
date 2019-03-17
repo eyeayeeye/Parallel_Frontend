@@ -6,42 +6,53 @@ import InfiniteScroll from "react-infinite-scroller";
 import { Badge } from "antd";
 import { Modal, Button } from "antd";
 import { Form, Input, Icon } from "antd";
+import io from "socket.io-client";
 
 class ChatList extends Component {
-  state = {
-    data: [
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 },
-      { name: "eye", message: "eyeayeeye", unseenCount: 30 }
-    ],
-    loading: false,
-    hasMore: true,
-    visibleCreateGroup: false,
-    confirmLoadingJoinGroup: false,
-    visibleJoinGroup: false,
-    confirmLoadingJoinGroup: false
-  };
-  //   componentDidMount() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: [
+        // { username: "eye", message: "eyeayeeye", unseenCount: 30 },
+        // { username: "eye", message: "eyeayeeye", unseenCount: 30 },
+        // { username: "eye", message: "eyeayeeye", unseenCount: 30 }
+      ],
+      username: "eyeaye",
+      uid: 1234,
+      loading: false,
+      hasMore: true,
+      visibleCreateGroup: false,
+      confirmLoadingJoinGroup: false,
+      visibleJoinGroup: false,
+      confirmLoadingJoinGroup: false,
+      joinGID: -1,
+      createdgroupName: ""
+    };
+
+    this.socket = io("http://localhost:8000");
+    this.socket.on("getAllChat", data => {
+      // console.log(data);
+      this.setState({ data: data });
+      // console.log(this.state.data);
+
+      // this.updateChat(data);
+    });
+    this.socket.on("addNewChat", data => {
+      // console.log(data);
+      this.setState({ data: [data, ...this.state.data] });
+      // console.log(this.state.data);
+
+      // this.updateChat(data);
+    });
+  }
+  // componentDidMount = () => {};
+
+  // updateChat = data => {
+  //   console.log(data);
+  //   this.setState({ data: [data, ...this.state.data] });
+  //   console.log(this.state.data);
+  // };
   //     this.fetchData(res => {
   //       this.setState({
   //         data: res.results
@@ -56,16 +67,28 @@ class ChatList extends Component {
   };
 
   handleOkCreateGroup = () => {
+    console.log(this.state.groupName);
+    this.socket.emit("createGroup", {
+      uid: this.state.uid,
+      groupName: this.state.createdgroupName
+    });
     this.setState({
-      ModalCreateGroup: "The modal will be closed after two seconds",
+      createdgroupName: "",
       confirmLoadingCreateGroup: true
     });
+
+    // this.socket.emit("addNewChat", {
+    //   username: this.state.uid,
+    //   message: "อายสวยจริ๊ง",
+    //   groupid: 555
+    // });
+
     setTimeout(() => {
       this.setState({
         visibleCreateGroup: false,
         confirmLoadingCreateGroup: false
       });
-    }, 2000);
+    }, 1000);
   };
 
   handleCancelCreateGroup = () => {
@@ -75,8 +98,8 @@ class ChatList extends Component {
     });
   };
 
-  onChangeCreateGroup = () => {
-    //send something
+  onChangeCreateGroup = e => {
+    this.setState({ createdgroupName: e.target.value });
   };
 
   showModalJoinGroup = () => {
@@ -86,8 +109,13 @@ class ChatList extends Component {
   };
 
   handleOkJoinGroup = () => {
+    // console.log(this.state.joinGID);
+    this.socket.emit("joinGroup", {
+      uid: this.state.uid,
+      gid: this.state.joinGID
+    });
     this.setState({
-      ModalJoinGroup: "The modal will be closed after two seconds",
+      joinGID: -1,
       confirmLoadingJoinGroup: true
     });
     setTimeout(() => {
@@ -95,44 +123,42 @@ class ChatList extends Component {
         visibleJoinGroup: false,
         confirmLoadingJoinGroup: false
       });
-    }, 2000);
+    }, 1000);
   };
 
   handleCancelJoinGroup = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visibleJoinGroup: false
     });
   };
 
-  onChangeJoinGroup = () => {
-    //send something
+  onChangeJoinGroup = e => {
+    this.setState({ joinGID: e.target.value });
   };
 
-  handleInfiniteOnLoad = () => {
-    let data = this.state.data;
-    this.setState({
-      loading: true
-    });
-    if (data.length > 14) {
-      message.warning("Infinite List loaded all");
-      this.setState({
-        hasMore: false,
-        loading: false
-      });
-      return;
-    }
-    this.fetchData(res => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false
-      });
-    });
-  };
+  // handleInfiniteOnLoad = () => {
+  //   let data = this.state.data;
+  //   this.setState({
+  //     loading: true
+  //   });
+  //   if (data.length > 14) {
+  //     message.warning("Infinite List loaded all");
+  //     this.setState({
+  //       hasMore: false,
+  //       loading: false
+  //     });
+  //     return;
+  //   }
+  //   // this.fetchData(res => {
+  //   //   data = data.concat(res.results);
+  //   //   this.setState({
+  //   //     data,
+  //   //     loading: false
+  //   //   });
+  //   // });
+  // };
 
   render() {
-    console.log(this.state.data);
     return (
       <div className="container">
         <div className="chat-bar">
@@ -156,7 +182,6 @@ class ChatList extends Component {
           <InfiniteScroll
             initialLoad={false}
             pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
             hasMore={!this.state.loading && this.state.hasMore}
             useWindow={false}
           >
@@ -172,7 +197,7 @@ class ChatList extends Component {
                         U
                       </Avatar>
                     }
-                    title={item.name}
+                    title={item.username}
                     description={item.message}
                   />
                   <Badge
