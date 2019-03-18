@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Avatar } from 'antd';
-import './chatMessage.css';
+import { Avatar } from 'antd';
 
 class chatMessage extends Component {
   render() {
@@ -23,12 +22,24 @@ class chatMessage extends Component {
           >
             <div
               style={{
+                display: 'flex',
+                alignSelf: 'flex-end',
+                color: '#707070',
+                fontWeight: '300',
+                fontSize: '10px'
+              }}
+            >
+              0:00
+            </div>
+            <div
+              style={{
                 maxWidth: '40%',
                 borderRadius: '20px',
                 backgroundColor: '#d9d9d9',
                 color: 'black',
                 textAlign: 'left',
-                padding: '15px'
+                padding: '15px',
+                marginLeft: '10px'
               }}
             >
               {this.props.msg}
@@ -47,8 +58,6 @@ class chatMessage extends Component {
           >
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'row',
                 alignItems: 'center'
               }}
             >
@@ -73,19 +82,37 @@ class chatMessage extends Component {
               >
                 {this.props.name}
               </div>
-
               <div
                 style={{
-                  maxWidth: '40%',
-                  borderRadius: '20px',
-                  backgroundColor: '#b13d3d',
-                  color: 'white',
-                  textAlign: 'left',
-                  padding: '15px',
-                  marginLeft: '10px'
+                  maxWidth: '50%',
+                  display: 'flex',
+                  flexDirection: 'row'
                 }}
               >
-                {this.props.msg}
+                <div
+                  style={{
+                    borderRadius: '20px',
+                    backgroundColor: '#b13d3d',
+                    color: 'white',
+                    textAlign: 'left',
+                    padding: '15px',
+                    marginLeft: '10px',
+                    marginRight: '10px'
+                  }}
+                >
+                  {this.props.msg}
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignSelf: 'flex-end',
+                    color: '#707070',
+                    fontWeight: '300',
+                    fontSize: '10px'
+                  }}
+                >
+                  0:00
+                </div>
               </div>
             </div>
           </div>

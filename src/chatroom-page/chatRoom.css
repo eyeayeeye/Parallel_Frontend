@@ -1,0 +1,18 @@
+.chat-window-container {
+  width: 70%;
+  height: 100vh;
+  border-left: solid;
+  border-width: 1px;
+  border-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-box {
+  padding: 10px 10px 10px 10px;
+  height: 8vh;
+}
+
+.del-devider .ant-list-split .ant-list-item {
+  border-bottom: 0px;
+}

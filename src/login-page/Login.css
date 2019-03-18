@@ -1,0 +1,55 @@
+.content-container {
+  width: 300px;
+  height: 669px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+.forget-password {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 10px;
+  margin-top: -5px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #707070;
+}
+
+.forget-password:hover {
+  cursor: pointer;
+}
+
+.login-option {
+  margin-bottom: 15px;
+  /* margin-top: -5px; */
+  font-size: 12px;
+  font-weight: 300;
+  color: #b7b7b7;
+}
+
+.forget-topic {
+  font-size: 22px;
+  font-weight: 500;
+  color: #707070;
+  margin-bottom: 10px;
+}
+
+.forget-description {
+  font-size: 14px;
+  font-weight: 300;
+  color: #707070;
+  text-align: center;
+  margin-bottom: 20px;
+  /* text-indent: 20%; */
+}

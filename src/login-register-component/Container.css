@@ -1,0 +1,14 @@
+.container {
+  width: 300px;
+  background-color: #ffffff;
+  border-color: #ab111197;
+  border-style: solid;
+  border-width: 2px;
+  display: flex;
+  align-items: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 40px;
+  padding-right: 40px;
+  flex-direction: column;
+}

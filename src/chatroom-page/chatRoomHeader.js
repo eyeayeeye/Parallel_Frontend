@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Avatar } from 'antd';
-import { Icon } from 'antd';
+import { Avatar } from 'antd';
+import ButtonRed from '../login-register-component/Button-red';
 import './chatRoomHeader.css';
 
 class chatRoomHeader extends Component {
@@ -22,13 +22,11 @@ class chatRoomHeader extends Component {
             <div style={{ fontSize: '12px' }}> group id</div>
           </div>
         </div>
-        <Button
-          className="leave-btn"
-          type="primary"
+        <ButtonRed
+          name="leave group"
           onClick={() => this.props.leaveGroup()}
-        >
-          leave group
-        </Button>
+          style={{ marginBottom: '10px' }}
+        />
       </div>
     );
   }

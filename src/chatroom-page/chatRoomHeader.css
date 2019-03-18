@@ -26,19 +26,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.leave-btn .ant-btn,
-.ant-btn-primary {
-  /* border-radius: 10px !important; */
-  background-color: #ab1111 !important;
-  border-color: #ab1111 !important;
-}
-
-.leave-btn .ant-btn:hover,
-.ant-btn:focus,
-.ant-btn-primary:hover,
-.ant-btn-primary:focus {
-  /* border-radius: 10px !important; */
-  background-color: #b13d3d !important;
-  border-color: #b13d3d !important;
-}
