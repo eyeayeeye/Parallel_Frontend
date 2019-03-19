@@ -7,6 +7,7 @@ import { Badge } from "antd";
 import { Modal, Button } from "antd";
 import { Form, Input, Icon } from "antd";
 import io from "socket.io-client";
+import axios from "axios";
 
 class ChatList extends Component {
   constructor(props) {
@@ -25,7 +26,6 @@ class ChatList extends Component {
       visibleCreateGroup: false,
       confirmLoadingJoinGroup: false,
       visibleJoinGroup: false,
-      confirmLoadingJoinGroup: false,
       joinGID: -1,
       createdgroupName: ""
     };
@@ -69,12 +69,23 @@ class ChatList extends Component {
     });
   };
 
-  handleOkCreateGroup = () => {
-    console.log(this.state.groupName);
-    this.socket.emit("createGroup", {
-      uid: this.state.uid,
-      groupName: this.state.createdgroupName
-    });
+  handleOkCreateGroup = async (uid, groupName) => {
+    console.log(uid, groupName);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/parallel/createGroup",
+        {
+          userid: uid,
+          groupname: groupName
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    // this.socket.emit("createGroup", {
+    //   uid: this.state.uid,
+    //   groupName: this.state.createdgroupName
+    // });
     this.setState({
       createdgroupName: "",
       confirmLoadingCreateGroup: true
@@ -114,8 +125,9 @@ class ChatList extends Component {
   handleOkJoinGroup = () => {
     // console.log(this.state.joinGID);
     this.socket.emit("joinGroup", {
-      uid: this.state.uid,
-      gid: this.state.joinGID
+      username: this.state.username,
+      userid: this.state.uid,
+      groupid: this.state.joinGID
     });
     this.setState({
       joinGID: -1,
@@ -221,7 +233,12 @@ class ChatList extends Component {
         <Modal
           title="Create Group"
           visible={this.state.visibleCreateGroup}
-          onOk={this.handleOkCreateGroup}
+          onOk={() =>
+            this.handleOkCreateGroup(
+              this.state.uid,
+              this.state.createdgroupName
+            )
+          }
           confirmLoading={this.state.confirmLoadingCreateGroup}
           onCancel={this.handleCancelCreateGroup}
         >
