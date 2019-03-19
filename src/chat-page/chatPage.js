@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ChatRoom from './chatRoom';
+import ChatList from './chatList';
 import './chatPage.css';
 import { withRouter } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ class ChatPage extends Component {
   render() {
     return (
       <div className="main">
-        <div style={{ width: '30%', height: '100hv' }} />
+        <CharList />
         <ChatRoom uid={this.state.uid} username={this.state.username} />
       </div>
     );
