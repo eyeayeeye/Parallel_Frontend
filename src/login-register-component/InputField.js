@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './InputField.css';
 import { Input } from 'antd';
+import './InputField.css';
 
 class InputField extends Component {
   render() {

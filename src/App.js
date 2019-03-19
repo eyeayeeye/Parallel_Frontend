@@ -1,9 +1,9 @@
+import './App.css';
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import ChatRoom from './chatroom-page/chatRoom';
 import Login from './login-page/Login';
 import Register from './register-page/Register';
-import './App.css';
 
 class App extends Component {
   state = { uid: '', username: '' };

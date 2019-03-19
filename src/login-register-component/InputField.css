@@ -1,16 +1,13 @@
-.input-field-without input {
+.input-field-without {
   width: 220px;
   height: 40px;
   background-color: #ffffff;
   border-style: solid;
   border-width: 1px;
   border-color: #707070;
-  border-radius: 0px;
+  border-radius: 10px;
   font-weight: 300;
   font-size: 14px;
-}
-
-.input-field-without {
   margin-bottom: 15px;
 }
 
