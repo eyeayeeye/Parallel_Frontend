@@ -69,13 +69,14 @@ class ChatList extends Component {
     });
   };
 
-  handleOkCreateGroup = async (uid, groupName) => {
+  handleOkCreateGroup = async (uid, username, groupName) => {
     console.log(uid, groupName);
     try {
       const response = await axios.post(
         "http://localhost:8000/parallel/createGroup",
         {
           userid: uid,
+          username: username,
           groupname: groupName
         }
       );
@@ -236,6 +237,7 @@ class ChatList extends Component {
           onOk={() =>
             this.handleOkCreateGroup(
               this.state.uid,
+              this.state.username,
               this.state.createdgroupName
             )
           }
