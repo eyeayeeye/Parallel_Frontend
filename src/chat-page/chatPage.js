@@ -18,6 +18,10 @@ class ChatPage extends Component {
     this.setState({ gid });
   };
 
+  resetGid = () => {
+    this.setState({ gid: '' });
+  };
+
   render() {
     return (
       <div className="main">
@@ -30,6 +34,7 @@ class ChatPage extends Component {
           uid={this.state.uid}
           username={this.state.username}
           gid={this.state.gid}
+          resetGid={this.resetGid}
         />
       </div>
     );

@@ -64,7 +64,7 @@ class ChatRoom extends Component {
   };
 
   leaveGroup = () => {
-    this.setState({ empty: true });
+    this.props.resetGid();
     // this.socket.emit('leave', {
     //   username: this.state.username,
     //   userid: this.state.uid,
@@ -82,7 +82,7 @@ class ChatRoom extends Component {
   render() {
     return (
       <div className="chat-window-container">
-        {this.state.empty ? (
+        {this.state.gid === '' ? (
           <Empty
             style={{
               display: 'flex',
