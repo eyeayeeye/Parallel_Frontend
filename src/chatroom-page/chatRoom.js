@@ -63,7 +63,7 @@ class ChatRoom extends Component {
     this.setState({ input: '' });
   };
 
-  leaveGroup = gid => {
+  leaveGroup = () => {
     this.setState({ empty: true });
     // this.socket.emit('leave', {
     //   username: this.state.username,
