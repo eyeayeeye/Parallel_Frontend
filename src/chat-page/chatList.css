@@ -1,4 +1,4 @@
-.container {
+.container-chat-list {
   width: 30%;
   height: 100vh;
   border: solid;
@@ -6,6 +6,10 @@
   /* border-color: red; */
   display: flex;
   flex-direction: column;
+}
+
+.container-chat-list .ant-badge-count {
+  background: #ab1111;
 }
 
 .chat-bar {

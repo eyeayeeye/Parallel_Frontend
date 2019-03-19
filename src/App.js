@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Login from './login-page/Login';
 import Register from './register-page/Register';
-import ChatPage from './chatroom-page/chatPage';
+import ChatPage from './chat-page/chatPage';
 
 class App extends Component {
   state = { uid: '', username: '' };

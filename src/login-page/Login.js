@@ -32,7 +32,7 @@ class Login extends Component {
           message.error('Your username or password are invalid');
           this.setState({ username: '', password: '' });
         } else {
-          this.props.setUserData(response.data._id, response.data.username);
+          this.props.setUserData(response.data.userid, response.data.username);
           this.props.history.push('/home');
         }
       })
@@ -70,7 +70,7 @@ class Login extends Component {
               onClick={e => {
                 this.handleLogin();
               }}
-              style={{ marginBottom: '10px', width: '220px' }}
+              style={{ marginBottom: '10px', width: '220px', height: '40px' }}
             />
             <Divider
               style={{
@@ -85,7 +85,7 @@ class Login extends Component {
               or
             </Divider>
             <ButtonGrey
-              style={{ marginBottom: '0px' }}
+              style={{ marginBottom: '0px', width: '220px', height: '40px' }}
               name="Register"
               onClick={e => this.goRegister()}
             />

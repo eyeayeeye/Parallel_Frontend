@@ -23,9 +23,15 @@ class ChatRoomHeader extends Component {
           </div>
         </div>
         <ButtonRed
-          name="leave group"
+          name="Leave Group"
           onClick={() => this.props.leaveGroup()}
-          style={{ marginBottom: '10px' }}
+          style={{
+            marginBottom: '10px',
+            paddingTop: '5px',
+            paddingBottom: '5px',
+            paddingLeft: '12px',
+            paddingRight: '12px'
+          }}
         />
       </div>
     );

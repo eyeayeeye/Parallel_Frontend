@@ -1,13 +1,12 @@
-import React, { Component } from "react";
-import "./chatList.css";
-import { List, message, Avatar, Spin } from "antd";
-import reqwest from "reqwest";
-import InfiniteScroll from "react-infinite-scroller";
-import { Badge } from "antd";
-import { Modal, Button } from "antd";
-import { Form, Input, Icon } from "antd";
-import io from "socket.io-client";
-import axios from "axios";
+import React, { Component } from 'react';
+import './chatList.css';
+import { List, message, Avatar, Spin } from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
+import { Badge } from 'antd';
+import { Modal, Button } from 'antd';
+import { Form, Input, Icon } from 'antd';
+import io from 'socket.io-client';
+import axios from 'axios';
 
 class ChatList extends Component {
   constructor(props) {
@@ -15,41 +14,48 @@ class ChatList extends Component {
 
     this.state = {
       data: [
-        { username: "eye", message: "eyeayeeye", unseenCount: 30 },
-        { username: "eye", message: "eyeayeeye", unseenCount: 30 },
-        { username: "eye", message: "eyeayeeye", unseenCount: 30 }
+        // { username: 'eye', message: 'eyeayeeye', gid: 2, unseenCount: 30 },
+        // { username: 'eye', message: 'eyeayeeye', gid: 3, unseenCount: 30 },
+        // { username: 'eye', message: 'eyeayeeye', gid: 4, unseenCount: 30 }
       ],
-      username: "eyeaye",
-      uid: 1234,
+      username: this.props.username,
+      uid: this.props.uid,
       loading: false,
       hasMore: true,
       visibleCreateGroup: false,
       confirmLoadingJoinGroup: false,
       visibleJoinGroup: false,
       joinGID: -1,
-      createdgroupName: ""
+      createdgroupName: ''
     };
 
-    this.socket = io("http://localhost:8000");
-    this.socket.on("getAllChat", data => {
-      // console.log(data);
-      this.setState({ data: data });
-      // console.log(this.state.data);
+    this.socket = io('http://localhost:8000');
 
-      // this.updateChat(data);
-    });
-    this.socket.on("addNewChat", data => {
+    // this.socket.on('getAllChat', data => {
+    //   // console.log(data);
+    //   this.setState({ data: data });
+    //   // console.log(this.state.data);
+
+    //   // this.updateChat(data);
+    // });
+    this.socket.on('addNewChat', data => {
+      console.log(655555);
       console.log(data);
       const filtered = this.state.data.filter(
         group => group.groupid !== data.groupid
       );
-      this.setState({ data: [data, ...filtered] });
+      const sorted_filtered = filtered.sort(
+        (item1, item2) => item1.logicalTime > item2.localTime
+      );
+      this.setState({ data: [data, ...sorted_filtered] });
       console.log(this.state.data);
 
       // this.updateChat(data);
     });
   }
-  // componentDidMount = () => {};
+  componentDidMount = () => {
+    this.fetchData();
+  };
 
   // updateChat = data => {
   //   console.log(data);
@@ -63,6 +69,22 @@ class ChatList extends Component {
   //     });
   //   }
 
+  fetchData = async () => {
+    console.log(this.state.uid);
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/parallel/getAllCurrentChat',
+        {
+          userid: this.state.uid
+        }
+      );
+      // console.log(response.data);
+      this.setState({ data: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   showModalCreateGroup = () => {
     this.setState({
       visibleCreateGroup: true
@@ -71,24 +93,34 @@ class ChatList extends Component {
 
   handleOkCreateGroup = async (uid, username, groupName) => {
     console.log(uid, groupName);
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/parallel/createGroup",
-        {
-          userid: uid,
-          username: username,
-          groupname: groupName
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+
+    await axios
+      .post('http://localhost:8000/parallel/createGroup', {
+        userid: uid,
+        username: username,
+        groupname: groupName
+      })
+      .then(response => {
+        console.log(response);
+        this.state.data = [response.data, ...this.state.data];
+        // const filtered = this.state.data.filter(
+        //   group => group.groupid !== response.groupid
+        // );
+        const sorted_filtered = this.state.data.sort(
+          (item1, item2) => item1.logicalTime > item2.localTime
+        );
+        this.setState({ data: sorted_filtered });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     // this.socket.emit("createGroup", {
     //   uid: this.state.uid,
     //   groupName: this.state.createdgroupName
     // });
     this.setState({
-      createdgroupName: "",
+      createdgroupName: '',
       confirmLoadingCreateGroup: true
     });
 
@@ -107,7 +139,7 @@ class ChatList extends Component {
   };
 
   handleCancelCreateGroup = () => {
-    console.log("Clicked cancel button");
+    console.log('Clicked cancel button');
     this.setState({
       visibleCreateGroup: false
     });
@@ -125,7 +157,7 @@ class ChatList extends Component {
 
   handleOkJoinGroup = () => {
     // console.log(this.state.joinGID);
-    this.socket.emit("joinGroup", {
+    this.socket.emit('joinGroup', {
       username: this.state.username,
       userid: this.state.uid,
       groupid: this.state.joinGID
@@ -175,10 +207,12 @@ class ChatList extends Component {
   // };
 
   render() {
+    console.log('555');
+    console.log(this.props.uid);
     return (
-      <div className="container">
+      <div className="container-chat-list">
         <div className="chat-bar">
-          <div style={{ width: "20%" }} />
+          <div style={{ width: '20%' }} />
           <div className="create-group-button">
             <div className="button" onClick={this.showModalCreateGroup}>
               Create Group
@@ -204,11 +238,14 @@ class ChatList extends Component {
             <List
               dataSource={this.state.data}
               renderItem={item => (
-                <List.Item key={item.id}>
+                <List.Item
+                  key={item.id}
+                  onClick={() => this.props.handleSelectChat(item.gid)}
+                >
                   <List.Item.Meta
                     avatar={
                       <Avatar
-                        style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+                        style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
                       >
                         U
                       </Avatar>
@@ -218,7 +255,7 @@ class ChatList extends Component {
                   />
                   <Badge
                     count={item.unseenCount}
-                    style={{ marginTop: "25px" }}
+                    style={{ marginTop: '25px' }}
                   />
                 </List.Item>
               )}

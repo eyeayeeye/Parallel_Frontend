@@ -106,7 +106,7 @@ class Register extends Component {
             <ButtonRed
               name="Submit"
               onClick={this.checkPassword}
-              style={{ marginBottom: '10px', width: '220px' }}
+              style={{ marginBottom: '10px', width: '220px', height: '40px' }}
             />
             <ButtonGrey
               name="Back"
@@ -114,7 +114,7 @@ class Register extends Component {
                 this.clearState();
                 this.goLogin();
               }}
-              style={{ marginBottom: '0px' }}
+              style={{ marginBottom: '0px', width: '220px', height: '40px' }}
             />
           </Container>
         </div>

@@ -9,15 +9,28 @@ class ChatPage extends Component {
     super(props);
     this.state = {
       uid: this.props.uid,
-      username: this.props.username
+      username: this.props.username,
+      gid: ''
     };
   }
+
+  handleSelectChat = gid => {
+    this.setState({ gid });
+  };
 
   render() {
     return (
       <div className="main">
-        <CharList />
-        <ChatRoom uid={this.state.uid} username={this.state.username} />
+        <ChatList
+          handleSelectChat={this.handleSelectChat}
+          uid={this.state.uid}
+          username={this.state.username}
+        />
+        <ChatRoom
+          uid={this.state.uid}
+          username={this.state.username}
+          gid={this.state.gid}
+        />
       </div>
     );
   }

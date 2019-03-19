@@ -15,9 +15,9 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      empty: false,
+      empty: true,
       input: '',
-      gid: 1,
+      gid: this.props.gid,
       uid: this.props.uid,
       username: this.props.username,
       data: []
