@@ -32,8 +32,3 @@
     transform: rotate(360deg);
   }
 }
-
-.main {
-  display: flex;
-  flex-direction: row;
-}

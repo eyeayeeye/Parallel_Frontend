@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Empty, List } from 'antd';
 import './chatRoom.css';
-import { withRouter } from 'react-router-dom';
 import ChatRoomHeader from './chatRoomHeader';
 import ChatMessage from './chatMessage';
 import InputField from '../login-register-component/InputField';
@@ -12,7 +11,7 @@ import axios from 'axios';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
-class chatRoom extends Component {
+class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,4 +151,4 @@ class chatRoom extends Component {
   }
 }
 
-export default withRouter(chatRoom);
+export default ChatRoom;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Avatar } from 'antd';
 
-class chatMessage extends Component {
+class ChatMessage extends Component {
   render() {
     return (
       <div
@@ -122,4 +122,4 @@ class chatMessage extends Component {
   }
 }
 
-export default chatMessage;
+export default ChatMessage;

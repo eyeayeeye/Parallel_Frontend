@@ -1,9 +1,9 @@
 import './App.css';
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import ChatRoom from './chatroom-page/chatRoom';
 import Login from './login-page/Login';
 import Register from './register-page/Register';
+import ChatPage from './chatroom-page/chatPage';
 
 class App extends Component {
   state = { uid: '', username: '' };
@@ -23,10 +23,7 @@ class App extends Component {
         <Route
           path="/home"
           component={() => (
-            <div className="main">
-              <div style={{ width: '30%', height: '100hv' }} />
-              <ChatRoom uid={this.state.uid} username={this.state.username} />
-            </div>
+            <ChatPage uid={this.state.uid} username={this.state.username} />
           )}
           exact
         />

@@ -3,7 +3,7 @@ import { Avatar } from 'antd';
 import ButtonRed from '../login-register-component/Button-red';
 import './chatRoomHeader.css';
 
-class chatRoomHeader extends Component {
+class ChatRoomHeader extends Component {
   render() {
     return (
       <div className="chatroom-header">
@@ -32,4 +32,4 @@ class chatRoomHeader extends Component {
   }
 }
 
-export default chatRoomHeader;
+export default ChatRoomHeader;
