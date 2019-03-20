@@ -252,9 +252,11 @@ class ChatList extends Component {
                                 >
                                     <List.Item.Meta
                                         avatar={
-                                            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
+                                            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+                                                {item.groupname[0].toUpperCase()}
+                                            </Avatar>
                                         }
-                                        title={item.groupname}
+                                        title={item.groupname + ' (Group ID:' + item.groupid + ')'}
                                         description={item.message}
                                     />
                                     <Badge count={item.unseenCount} style={{ marginTop: '25px' }} />
