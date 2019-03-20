@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import "./chatList.css";
-import { List, message, Avatar, Spin } from "antd";
-import InfiniteScroll from "react-infinite-scroller";
-import { Badge } from "antd";
-import { Modal, Button } from "antd";
-import { Form, Input, Icon } from "antd";
-import io from "socket.io-client";
-import axios from "axios";
+import React, { Component } from 'react';
+import './chatList.css';
+import { List, message, Avatar, Spin } from 'antd';
+import InfiniteScroll from 'react-infinite-scroller';
+import { Badge } from 'antd';
+import { Modal, Button } from 'antd';
+import { Form, Input, Icon } from 'antd';
+import io from 'socket.io-client';
+import axios from 'axios';
 
 class ChatList extends Component {
   constructor(props) {
@@ -26,10 +26,10 @@ class ChatList extends Component {
       confirmLoadingJoinGroup: false,
       visibleJoinGroup: false,
       joinGID: -1,
-      createdgroupName: ""
+      createdgroupName: ''
     };
 
-    this.socket = io("http://localhost:8000");
+    this.socket = io('http://localhost:8000');
 
     // this.socket.on('getAllChat', data => {
     //   // console.log(data);
@@ -38,9 +38,9 @@ class ChatList extends Component {
 
     //   // this.updateChat(data);
     // });
-    this.socket.on("addNewChat", data => {
+    this.socket.on('addNewChat', data => {
       // console.log(655555);
-      console.log("new chat", data);
+      console.log('new chat', data);
       const filtered = this.state.data.filter(
         group => group.groupid !== data.groupid
       );
@@ -53,16 +53,16 @@ class ChatList extends Component {
 
       // this.updateChat(data);
     });
-    this.socket.on("joinGroupChat", data => {
+    this.socket.on('joinGroupChat', data => {
       // console.log(655555);
-      console.log("data", data);
+      console.log('data', data);
       const filtered = this.state.data.filter(
         group => group.groupid !== data.groupid
       );
-      console.log("filter", filtered);
+      console.log('filter', filtered);
 
       const sum_filtered = [data, ...filtered];
-      console.log("sum", sum_filtered);
+      console.log('sum', sum_filtered);
 
       const sorted_filtered = sum_filtered.sort(
         (item1, item2) => item1.logicalTime >= item2.localTime
@@ -93,12 +93,12 @@ class ChatList extends Component {
     // console.log(this.state.uid);
     try {
       const response = await axios.post(
-        "http://localhost:8000/parallel/getAllCurrentChat",
+        'http://localhost:8000/parallel/getAllCurrentChat',
         {
           userid: this.state.uid
         }
       );
-      console.log("datafetched", response.data);
+      console.log('datafetched', response.data);
       this.setState({ data: response.data });
     } catch (error) {
       console.log(error);
@@ -115,7 +115,7 @@ class ChatList extends Component {
     console.log(uid, username, groupName);
 
     await axios
-      .post("http://localhost:8000/parallel/createGroup", {
+      .post('http://localhost:8000/parallel/createGroup', {
         userid: uid,
         username: username,
         groupname: groupName
@@ -141,7 +141,7 @@ class ChatList extends Component {
     //   groupName: this.state.createdgroupName
     // });
     this.setState({
-      createdgroupName: "",
+      createdgroupName: '',
       confirmLoadingCreateGroup: true
     });
 
@@ -160,7 +160,7 @@ class ChatList extends Component {
   };
 
   handleCancelCreateGroup = () => {
-    console.log("Clicked cancel button");
+    console.log('Clicked cancel button');
     this.setState({
       visibleCreateGroup: false
     });
@@ -178,7 +178,7 @@ class ChatList extends Component {
 
   handleOkJoinGroup = () => {
     // console.log(this.state.joinGID);
-    this.socket.emit("joinGroup", {
+    this.socket.emit('joinGroup', {
       username: this.state.username,
       userid: this.state.uid,
       groupid: this.state.joinGID
@@ -233,7 +233,7 @@ class ChatList extends Component {
     return (
       <div className="container-chat-list">
         <div className="chat-bar">
-          <div style={{ width: "20%" }} />
+          <div style={{ width: '20%' }} />
           <div className="create-group-button">
             <div className="button" onClick={this.showModalCreateGroup}>
               Create Group
@@ -266,7 +266,7 @@ class ChatList extends Component {
                   <List.Item.Meta
                     avatar={
                       <Avatar
-                        style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
+                        style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
                       >
                         U
                       </Avatar>
@@ -276,7 +276,7 @@ class ChatList extends Component {
                   />
                   <Badge
                     count={item.unseenCount}
-                    style={{ marginTop: "25px" }}
+                    style={{ marginTop: '25px' }}
                   />
                 </List.Item>
               )}

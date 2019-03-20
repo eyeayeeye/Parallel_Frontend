@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import ChatRoom from "./chatRoom";
-import ChatList from "./chatList";
-import "./chatPage.css";
-import { withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import ChatRoom from './chatRoom';
+import ChatList from './chatList';
+import './chatPage.css';
+import { withRouter } from 'react-router-dom';
 
 class ChatPage extends Component {
   constructor(props) {
@@ -10,16 +10,17 @@ class ChatPage extends Component {
     this.state = {
       uid: this.props.uid,
       username: this.props.username,
-      gid: ""
+      gid: '',
+      groupName: ''
     };
   }
 
   handleSelectedChat = gid => {
-    this.setState({ gid: gid });
+    this.setState({ gid });
   };
 
   resetGid = () => {
-    this.setState({ gid: "" });
+    this.setState({ gid: '', groupName: '' });
   };
 
   render() {
@@ -34,6 +35,7 @@ class ChatPage extends Component {
           uid={this.state.uid}
           username={this.state.username}
           gid={this.state.gid}
+          groupName={this.state.groupName}
           resetGid={this.resetGid}
         />
       </div>

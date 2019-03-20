@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Avatar } from "antd";
-import ButtonRed from "../login-register-component/Button-red";
-import "./chatRoomHeader.css";
+import React, { Component } from 'react';
+import { Avatar } from 'antd';
+import ButtonRed from '../login-register-component/Button-red';
+import './chatRoomHeader.css';
 
 class ChatRoomHeader extends Component {
   render() {
@@ -11,26 +11,26 @@ class ChatRoomHeader extends Component {
           <Avatar
             size="large"
             style={{
-              color: "#f56a00",
-              backgroundColor: "#fde3cf"
+              color: '#f56a00',
+              backgroundColor: '#fde3cf'
             }}
           >
             G
           </Avatar>
           <div className="header-name">
-            <div>Group name</div>
-            <div style={{ fontSize: "12px" }}>{this.props.gid}</div>
+            <div>{this.props.groupName}</div>
+            <div style={{ fontSize: '12px' }}>{this.props.gid}</div>
           </div>
         </div>
         <ButtonRed
           name="Leave Group"
           onClick={() => this.props.leaveGroup()}
           style={{
-            marginBottom: "10px",
-            paddingTop: "5px",
-            paddingBottom: "5px",
-            paddingLeft: "12px",
-            paddingRight: "12px"
+            marginBottom: '10px',
+            paddingTop: '5px',
+            paddingBottom: '5px',
+            paddingLeft: '12px',
+            paddingRight: '12px'
           }}
         />
       </div>
