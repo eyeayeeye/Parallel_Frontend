@@ -98,6 +98,7 @@ class ChatList extends Component {
           userid: this.state.uid
         }
       );
+      console.log(555);
       console.log("datafetched", response.data);
       this.setState({ data: response.data });
     } catch (error) {
@@ -268,10 +269,10 @@ class ChatList extends Component {
                       <Avatar
                         style={{ color: "#f56a00", backgroundColor: "#fde3cf" }}
                       >
-                        U
+                        {item.groupname[0].toUpperCase()}
                       </Avatar>
                     }
-                    title={item.groupname}
+                    title={item.groupname + " (Group ID:" + item.groupid + ")"}
                     description={item.message}
                   />
                   <Badge
