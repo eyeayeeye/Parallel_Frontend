@@ -15,7 +15,7 @@ class ChatRoomHeader extends Component {
                             backgroundColor: '#fde3cf'
                         }}
                     >
-                        G
+                        {this.props.groupName[0].toUpperCase()}
                     </Avatar>
                     <div className="header-name">
                         <div>{this.props.groupName}</div>

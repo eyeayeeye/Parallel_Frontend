@@ -29,10 +29,6 @@ class ChatRoom extends Component {
         });
     }
 
-    componentDidMount() {
-        // this.fetchData();
-    }
-
     componentDidUpdate() {
         this.scrollToBottom();
     }
