@@ -5,42 +5,42 @@ import './chatPage.css';
 import { withRouter } from 'react-router-dom';
 
 class ChatPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      uid: this.props.uid,
-      username: this.props.username,
-      gid: '',
-      groupName: ''
+    constructor(props) {
+        super(props);
+        this.state = {
+            uid: this.props.uid,
+            username: this.props.username,
+            gid: '',
+            groupName: ''
+        };
+    }
+
+    handleSelectedChat = (gid, groupName) => {
+        this.setState({ gid, groupName });
     };
-  }
 
-  handleSelectedChat = gid => {
-    this.setState({ gid });
-  };
+    resetGid = () => {
+        this.setState({ gid: '', groupName: '' });
+    };
 
-  resetGid = () => {
-    this.setState({ gid: '', groupName: '' });
-  };
-
-  render() {
-    return (
-      <div className="main">
-        <ChatList
-          handleSelectedChat={this.handleSelectedChat}
-          uid={this.state.uid}
-          username={this.state.username}
-        />
-        <ChatRoom
-          uid={this.state.uid}
-          username={this.state.username}
-          gid={this.state.gid}
-          groupName={this.state.groupName}
-          resetGid={this.resetGid}
-        />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="main">
+                <ChatList
+                    handleSelectedChat={this.handleSelectedChat}
+                    uid={this.state.uid}
+                    username={this.state.username}
+                />
+                <ChatRoom
+                    uid={this.state.uid}
+                    username={this.state.username}
+                    gid={this.state.gid}
+                    groupName={this.state.groupName}
+                    resetGid={this.resetGid}
+                />
+            </div>
+        );
+    }
 }
 
 export default withRouter(ChatPage);
