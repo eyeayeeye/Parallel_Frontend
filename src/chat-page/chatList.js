@@ -53,6 +53,23 @@ class ChatList extends Component {
 
       // this.updateChat(data);
     });
+
+    this.socket.on("leave", data => {
+      // console.log(655555);
+      console.log("leave", data);
+      const filtered = this.state.data.filter(
+        group => group.groupid !== data.groupid
+      );
+
+      const sorted_filtered = filtered.sort(
+        (item1, item2) => item1.logicalTime >= item2.localTime
+      );
+      this.setState({ data: sorted_filtered });
+      // console.log(this.state.data);
+
+      // this.updateChat(data);
+    });
+
     this.socket.on("joinGroupChat", data => {
       // console.log(655555);
       console.log("data", data);
