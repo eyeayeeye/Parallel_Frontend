@@ -2,7 +2,20 @@ import React, { Component } from 'react';
 import { Avatar } from 'antd';
 
 class ChatMessage extends Component {
+    convertTimeToString = unix_timestamp => {
+        const date = new Date(unix_timestamp);
+        // Hours part from the timestamp
+        const hours = date.getHours();
+        // Minutes part from the timestamp
+        const minutes = '0' + date.getMinutes();
+
+        // Will display time in 10:30:23 format
+        const formattedTime = hours + ':' + minutes.substr(-2);
+
+        return formattedTime;
+    };
     render() {
+        console.log(this.props);
         return (
             <div
                 style={{
@@ -29,16 +42,18 @@ class ChatMessage extends Component {
                                 fontSize: '10px'
                             }}
                         >
-                            0:00
+                            {this.convertTimeToString(this.props.time)}
                         </div>
+
                         <div
                             style={{
                                 maxWidth: '40%',
-                                borderRadius: '20px',
-                                backgroundColor: '#d9d9d9',
-                                color: 'black',
+                                wordWrap: 'break-word',
+                                backgroundColor: '#b13d3d',
+                                padding: '9px 16px 9px 16px',
+                                borderRadius: '15px',
+                                color: 'white',
                                 textAlign: 'left',
-                                padding: '15px',
                                 marginLeft: '10px'
                             }}
                         >
@@ -61,7 +76,7 @@ class ChatMessage extends Component {
                                 alignItems: 'center'
                             }}
                         >
-                            <Avatar icon="user" />
+                            <Avatar style={{ backgroundColor: {} }}>{this.props.name[0].toUpperCase()}</Avatar>
                         </div>
                         <div
                             style={{
@@ -84,18 +99,20 @@ class ChatMessage extends Component {
                             </div>
                             <div
                                 style={{
-                                    maxWidth: '50%',
                                     display: 'flex',
-                                    flexDirection: 'row'
+                                    flexDirection: 'row',
+                                    width: '100%'
                                 }}
                             >
                                 <div
                                     style={{
+                                        maxWidth: '40%',
+                                        wordWrap: 'break-word',
                                         borderRadius: '20px',
-                                        backgroundColor: '#b13d3d',
-                                        color: 'white',
+                                        backgroundColor: '#d9d9d9',
+                                        color: 'black',
                                         textAlign: 'left',
-                                        padding: '15px',
+                                        padding: '9px 16px 9px 16px',
                                         marginLeft: '10px',
                                         marginRight: '10px'
                                     }}
@@ -111,7 +128,7 @@ class ChatMessage extends Component {
                                         fontSize: '10px'
                                     }}
                                 >
-                                    0:00
+                                    {this.convertTimeToString(this.props.time)}
                                 </div>
                             </div>
                         </div>

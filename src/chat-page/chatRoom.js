@@ -23,8 +23,12 @@ class ChatRoom extends Component {
         };
         this.socket = io('http://localhost:8000');
         this.socket.on('addNewChat', data => {
-            // console.log(data);
-            this.setState({ data: [...this.state.data, data] });
+            console.log('data wowww');
+            console.log(data);
+            if (data.groupid === this.props.gid) {
+                this.setState({ data: [...this.state.data, data] });
+                // this.sortData();
+            }
             // console.log(this.state.data);
         });
     }
@@ -50,7 +54,9 @@ class ChatRoom extends Component {
             .post('http://localhost:8000/parallel/getChatByGroupID', data)
             .then(response => {
                 console.log('resforgrouppp', response);
+
                 this.setState({ data: response.data });
+                // this.sortData();
             })
             .catch(error => {
                 console.log(error);
@@ -64,7 +70,7 @@ class ChatRoom extends Component {
         this.socket.emit('addNewChat', {
             username: this.props.username,
             userid: this.props.uid,
-            message: this.props.input,
+            message: this.state.input,
             groupid: this.props.gid
         });
         this.scrollToBottom();
@@ -76,21 +82,30 @@ class ChatRoom extends Component {
         this.socket.emit('leave', {
             username: this.props.username,
             userid: this.props.uid,
-            groupid: this.props.gid
+            groupid: this.props.gid,
+            groupname: this.props.groupName
         });
     };
 
-    scrollToBottom() {
+    scrollToBottom = () => {
         const messagesContainer = ReactDOM.findDOMNode(this.messagesContainer);
         if (messagesContainer != null) {
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
-    }
+    };
+
+    sortData = () => {
+        console.log('sorttt', this.state.data);
+        const filtered = this.state.data.filter(item => item.message !== ' ');
+        const sorted_filtered = filtered.sort((item1, item2) => item1.logicalTime >= item2.logicalTime);
+        this.setState({ data: sorted_filtered });
+        console.log('sorteddd', this.state.data);
+    };
 
     render() {
-        console.log('gid ka', this.props.gid);
         console.log('pageeee', this.props.gid);
         console.log('pageeee', this.props.groupName);
+        console.log('dataaaa', this.state.data);
         return (
             <div className="chat-window-container">
                 {this.props.gid === '' ? (
@@ -122,12 +137,13 @@ class ChatRoom extends Component {
                         >
                             <InfiniteScroll initialLoad={false} pageStart={1} useWindow={false}>
                                 <List
-                                    dataSource={this.state.data.filter(item => item.message !== ' ')}
+                                    dataSource={this.state.data}
                                     renderItem={item => (
                                         <List.Item key={item.id}>
                                             <ChatMessage
                                                 name={item.username}
                                                 msg={item.message}
+                                                time={item.timestamp}
                                                 isuser={this.props.username === item.username}
                                             />
                                         </List.Item>
@@ -145,7 +161,7 @@ class ChatRoom extends Component {
                                 style={{ width: '85%', height: '100%' }}
                             />
                             <ButtonRed
-                                name="send"
+                                name="Send"
                                 onClick={this.sendText}
                                 style={{
                                     marginBottom: '10px',
