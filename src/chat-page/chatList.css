@@ -1,66 +1,69 @@
 .container-chat-list {
-  width: 30%;
-  height: 100vh;
-  border: solid;
-  border-width: 1px;
-  /* border-color: red; */
-  display: flex;
-  flex-direction: column;
+    width: 30%;
+
+    /* border: solid; */
+    /* border-width: 1px; */
+    /* border-color: red; */
+    display: flex;
+    flex-direction: column;
 }
 
 .container-chat-list .ant-badge-count {
-  background: #ab1111;
+    background: #ab1111;
 }
 
 .chat-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* background-color: #ebebeb; */
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: #ab1111;
+    display: flex;
+    height: 70px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /* background-color: #ebebeb; */
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #ab1111;
 }
 
 .button {
-  background-color: white;
-  border: solid;
-  border-color: #ab1111;
-  border-width: 1px;
-  border-radius: 15px;
-  text-align: center;
-  display: inline-block;
-  font-size: 14px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 12px;
-  padding-right: 12px;
+    background-color: white;
+    border: solid;
+    border-color: #ab1111;
+    border-width: 1px;
+    border-radius: 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 .button:hover {
-  background-color: #ab1111;
-  color: white;
-  cursor: pointer;
+    background-color: #ab1111;
+    color: white;
+    cursor: pointer;
 }
 .demo-infinite-container {
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
-  overflow: auto;
-  padding: 0px 24px;
-  height: 100%;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    overflow: auto;
+    padding: 0px 24px;
+    flex-grow: 2;
+    /* align-self: stretch; */
+    /* height: 100%; */
 }
 .demo-loading-container {
-  position: absolute;
-  bottom: 40px;
-  width: 100%;
-  text-align: center;
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
 }
 .ant-list-item-meta-content {
-  margin-left: 5px;
-  text-align: left;
+    margin-left: 5px;
+    text-align: left;
 }
 .ant-list-item-meta-title {
-  color: #ab1111;
+    color: #ab1111;
 }

@@ -19,20 +19,13 @@ class ChatRoomHeader extends Component {
                     </Avatar>
                     <div className="header-name">
                         <div>{this.props.groupName}</div>
-                        <div style={{ fontSize: '12px' }}>{this.props.gid}</div>
+                        <div style={{ fontSize: '12px' }}>Group ID: {this.props.gid}</div>
                     </div>
                 </div>
-                <ButtonRed
-                    name="Leave Group"
-                    onClick={() => this.props.leaveGroup()}
-                    style={{
-                        marginBottom: '10px',
-                        paddingTop: '5px',
-                        paddingBottom: '5px',
-                        paddingLeft: '12px',
-                        paddingRight: '12px'
-                    }}
-                />
+
+                <div className="button" onClick={this.props.leaveGroup}>
+                    Leave Group
+                </div>
             </div>
         );
     }
