@@ -54,7 +54,7 @@ class ChatList extends Component {
             console.log('leave', data);
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
 
-            const sorted_filtered = filtered.sort((item1, item2) => item1.logicalTime >= item2.localTime);
+            const sorted_filtered = filtered.sort((item1, item2) => item1.logicalTime >= item2.logicalTime);
             this.setState({ data: sorted_filtered });
             // console.log(this.state.data);
 
@@ -69,7 +69,7 @@ class ChatList extends Component {
             const sum_filtered = [data, ...filtered];
             console.log('sum', sum_filtered);
 
-            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.logicalTime >= item2.localTime);
+            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.logicalTime >= item2.logicalTime);
             this.setState({ data: sorted_filtered });
             // console.log(this.state.data);
 

@@ -64,7 +64,7 @@ class ChatRoom extends Component {
         this.socket.emit('addNewChat', {
             username: this.props.username,
             userid: this.props.uid,
-            message: this.props.input,
+            message: this.state.input,
             groupid: this.props.gid
         });
         this.scrollToBottom();
