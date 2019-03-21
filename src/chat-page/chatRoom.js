@@ -14,7 +14,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 class ChatRoom extends Component {
     constructor(props) {
         super(props);
-        console.log('props', this.props);
 
         this.state = {
             empty: true,
@@ -23,13 +22,10 @@ class ChatRoom extends Component {
         };
         this.socket = io('http://localhost:8000');
         this.socket.on('addNewChat', data => {
-            console.log('data wowww');
-            console.log(data);
             if (data.groupid === this.props.gid) {
                 this.setState({ data: [...this.state.data, data] });
-                // this.sortData();
+                this.sortData();
             }
-            // console.log(this.state.data);
         });
     }
 
@@ -39,9 +35,7 @@ class ChatRoom extends Component {
 
     async componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render
-        console.log('gidddd', nextProps);
         if (nextProps.gid !== this.props.gid) {
-            console.log('gidddd', nextProps.gid);
             await this.fetchData(nextProps.gid);
         }
     }
@@ -53,10 +47,8 @@ class ChatRoom extends Component {
         await axios
             .post('http://localhost:8000/parallel/getChatByGroupID', data)
             .then(response => {
-                console.log('resforgrouppp', response);
-
                 this.setState({ data: response.data });
-                // this.sortData();
+                this.sortData();
             })
             .catch(error => {
                 console.log(error);
@@ -66,15 +58,16 @@ class ChatRoom extends Component {
     };
 
     sendText = () => {
-        // console.log(this.state.input);
-        this.socket.emit('addNewChat', {
-            username: this.props.username,
-            userid: this.props.uid,
-            message: this.state.input,
-            groupid: this.props.gid
-        });
-        this.scrollToBottom();
-        this.setState({ input: '' });
+        if (this.state.input !== '') {
+            this.socket.emit('addNewChat', {
+                username: this.props.username,
+                userid: this.props.uid,
+                message: this.state.input,
+                groupid: this.props.gid
+            });
+            this.scrollToBottom();
+            this.setState({ input: '' });
+        }
     };
 
     leaveGroup = () => {
@@ -95,17 +88,14 @@ class ChatRoom extends Component {
     };
 
     sortData = () => {
-        console.log('sorttt', this.state.data);
+        // console.log('sorttt', this.state.data);
         const filtered = this.state.data.filter(item => item.message !== ' ');
-        const sorted_filtered = filtered.sort((item1, item2) => item1.logicalTime >= item2.logicalTime);
+        const sorted_filtered = filtered.sort((item1, item2) => item1.timestamp >= item2.timestamp);
         this.setState({ data: sorted_filtered });
         console.log('sorteddd', this.state.data);
     };
 
     render() {
-        console.log('pageeee', this.props.gid);
-        console.log('pageeee', this.props.groupName);
-        console.log('dataaaa', this.state.data);
         return (
             <div className="chat-window-container">
                 {this.props.gid === '' ? (

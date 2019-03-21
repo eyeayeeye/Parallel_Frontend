@@ -19,6 +19,11 @@ class ChatPage extends Component {
         this.setState({ gid, groupName });
     };
 
+    handleLogout = () => {
+        this.resetGid();
+        this.props.history.push('/');
+    };
+
     resetGid = () => {
         this.setState({ gid: '', groupName: '' });
     };
@@ -28,6 +33,7 @@ class ChatPage extends Component {
             <div className="main">
                 <ChatList
                     handleSelectedChat={this.handleSelectedChat}
+                    handleLogout={this.handleLogout}
                     uid={this.state.uid}
                     username={this.state.username}
                 />

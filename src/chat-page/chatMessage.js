@@ -15,7 +15,6 @@ class ChatMessage extends Component {
         return formattedTime;
     };
     render() {
-        console.log(this.props);
         return (
             <div
                 style={{

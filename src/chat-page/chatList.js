@@ -40,10 +40,10 @@ class ChatList extends Component {
         // });
         this.socket.on('addNewChat', data => {
             // console.log(655555);
-            console.log('new chat', data);
+            // console.log('new chat', data);
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
             const sum_filtered = [data, ...filtered];
-            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.logicalTime >= item2.localTime);
+            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.timestamp >= item2.timestamp);
             this.setState({ data: sorted_filtered });
             // console.log(this.state.data);
 
@@ -51,10 +51,10 @@ class ChatList extends Component {
         });
         this.socket.on('leave', data => {
             // console.log(655555);
-            console.log('leave', data);
+            // console.log('leave', data);
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
 
-            const sorted_filtered = filtered.sort((item1, item2) => item1.logicalTime >= item2.localTime);
+            const sorted_filtered = filtered.sort((item1, item2) => item1.timestamp >= item2.timestamp);
             this.setState({ data: sorted_filtered });
             // console.log(this.state.data);
 
@@ -62,14 +62,14 @@ class ChatList extends Component {
         });
         this.socket.on('joinGroupChat', data => {
             // console.log(655555);
-            console.log('data', data);
+            // console.log('data', data);
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
-            console.log('filter', filtered);
+            // console.log('filter', filtered);
 
             const sum_filtered = [data, ...filtered];
-            console.log('sum', sum_filtered);
+            // console.log('sum', sum_filtered);
 
-            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.logicalTime >= item2.localTime);
+            const sorted_filtered = sum_filtered.sort((item1, item2) => item1.timestamp >= item2.timestamp);
             this.setState({ data: sorted_filtered });
             // console.log(this.state.data);
 
@@ -80,25 +80,13 @@ class ChatList extends Component {
         this.fetchData();
     };
 
-    // updateChat = data => {
-    //   console.log(data);
-    //   this.setState({ data: [data, ...this.state.data] });
-    //   console.log(this.state.data);
-    // };
-    //     this.fetchData(res => {
-    //       this.setState({
-    //         data: res.results
-    //       });
-    //     });
-    //   }
-
     fetchData = async () => {
         // console.log(this.state.uid);
         try {
             const response = await axios.post('http://localhost:8000/parallel/getAllCurrentChat', {
                 userid: this.state.uid
             });
-            console.log('datafetched', response.data);
+            // console.log('datafetched', response.data);
             this.setState({ data: response.data });
         } catch (error) {
             console.log(error);
@@ -112,7 +100,7 @@ class ChatList extends Component {
     };
 
     handleOkCreateGroup = async (uid, username, groupName) => {
-        console.log(uid, username, groupName);
+        // console.log(uid, username, groupName);
 
         await axios
             .post('http://localhost:8000/parallel/createGroup', {
@@ -121,14 +109,14 @@ class ChatList extends Component {
                 groupname: groupName
             })
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 this.state.data = [response.data, ...this.state.data];
                 // const filtered = this.state.data.filter(
                 //   group => group.groupid !== response.groupid
                 // );
-                const sorted_filtered = this.state.data.sort((item1, item2) => item1.logicalTime >= item2.logicalTime);
+                const sorted_filtered = this.state.data.sort((item1, item2) => item1.timestamp >= item2.timestamp);
                 this.setState({ data: sorted_filtered });
-                console.log(this.state.data);
+                // console.log(this.state.data);
             })
             .catch(error => {
                 console.log(error);
@@ -158,7 +146,7 @@ class ChatList extends Component {
     };
 
     handleCancelCreateGroup = () => {
-        console.log('Clicked cancel button');
+        // console.log('Clicked cancel button');
         this.setState({
             visibleCreateGroup: false
         });
@@ -203,28 +191,6 @@ class ChatList extends Component {
         this.setState({ joinGID: e.target.value });
     };
 
-    // handleInfiniteOnLoad = () => {
-    //   let data = this.state.data;
-    //   this.setState({
-    //     loading: true
-    //   });
-    //   if (data.length > 14) {
-    //     message.warning("Infinite List loaded all");
-    //     this.setState({
-    //       hasMore: false,
-    //       loading: false
-    //     });
-    //     return;
-    //   }
-    //   // this.fetchData(res => {
-    //   //   data = data.concat(res.results);
-    //   //   this.setState({
-    //   //     data,
-    //   //     loading: false
-    //   //   });
-    //   // });
-    // };
-
     render() {
         // console.log('555');
         // console.log(this.props.uid);
@@ -243,7 +209,9 @@ class ChatList extends Component {
                         </div>
                     </div>
                     <div className="logout-button">
-                        <div className="button">Logout</div>
+                        <div className="button" onClick={this.props.handleLogout}>
+                            Logout
+                        </div>
                     </div>
                 </div>
 
