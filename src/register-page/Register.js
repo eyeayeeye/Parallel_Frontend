@@ -22,7 +22,7 @@ class Register extends Component {
             password: this.state.password
         };
         await axios
-            .post('http://5b0457b7.ngrok.io/parallel/register', data)
+            .post('http://ce23bb5c.ngrok.io/parallel/register', data)
             .then(response => {
                 if (response.data === 'This username has already existed') {
                     message.error('This username has already existed');

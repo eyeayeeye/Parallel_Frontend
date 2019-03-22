@@ -24,7 +24,7 @@ class Login extends Component {
             password: this.state.password
         };
         await axios
-            .post('http://5b0457b7.ngrok.io/parallel/login', data)
+            .post('http://ce23bb5c.ngrok.io/parallel/login', data)
             .then(response => {
                 if (response.data === 'Again Pls') {
                     message.error('Your username or password are invalid');

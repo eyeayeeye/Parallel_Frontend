@@ -29,7 +29,7 @@ class ChatList extends Component {
             createdgroupName: ''
         };
 
-        this.socket = io('http://5b0457b7.ngrok.io');
+        this.socket = io('http://ce23bb5c.ngrok.io');
 
         // this.socket.on('getAllChat', data => {
         //   // console.log(data);
@@ -87,7 +87,7 @@ class ChatList extends Component {
     fetchData = async () => {
         // console.log(this.state.uid);
         try {
-            const response = await axios.post('http://5b0457b7.ngrok.io/parallel/getAllCurrentChat', {
+            const response = await axios.post('http://ce23bb5c.ngrok.io/parallel/getAllCurrentChat', {
                 userid: this.state.uid
             });
             // console.log('datafetched', response.data);
@@ -107,7 +107,7 @@ class ChatList extends Component {
         // console.log(uid, username, groupName);
 
         await axios
-            .post('http://5b0457b7.ngrok.io/parallel/createGroup', {
+            .post('http://ce23bb5c.ngrok.io/parallel/createGroup', {
                 userid: uid,
                 username: username,
                 groupname: groupName
