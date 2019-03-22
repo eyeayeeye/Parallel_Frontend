@@ -22,7 +22,7 @@ class Register extends Component {
             password: this.state.password
         };
         await axios
-            .post('http://localhost:8000/parallel/register', data)
+            .post('http://35.198.245.254/parallel/register', data)
             .then(response => {
                 if (response.data === 'This username has already existed') {
                     message.error('This username has already existed');

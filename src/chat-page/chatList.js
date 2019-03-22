@@ -29,7 +29,7 @@ class ChatList extends Component {
             createdgroupName: ''
         };
 
-        this.socket = io('http://localhost:8000');
+        this.socket = io('http://35.198.245.254');
 
         // this.socket.on('getAllChat', data => {
         //   // console.log(data);
@@ -83,7 +83,7 @@ class ChatList extends Component {
     fetchData = async () => {
         // console.log(this.state.uid);
         try {
-            const response = await axios.post('http://localhost:8000/parallel/getAllCurrentChat', {
+            const response = await axios.post('http://35.198.245.254/parallel/getAllCurrentChat', {
                 userid: this.state.uid
             });
             // console.log('datafetched', response.data);
@@ -103,7 +103,7 @@ class ChatList extends Component {
         // console.log(uid, username, groupName);
 
         await axios
-            .post('http://localhost:8000/parallel/createGroup', {
+            .post('http://35.198.245.254/parallel/createGroup', {
                 userid: uid,
                 username: username,
                 groupname: groupName

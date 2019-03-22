@@ -20,7 +20,7 @@ class ChatRoom extends Component {
             input: '',
             data: []
         };
-        this.socket = io('http://localhost:8000');
+        this.socket = io('http://35.198.245.254');
         this.socket.on('addNewChat', data => {
             if (data.groupid === this.props.gid) {
                 this.setState({ data: [...this.state.data, data] });
@@ -45,7 +45,7 @@ class ChatRoom extends Component {
             groupid: gid
         };
         await axios
-            .post('http://localhost:8000/parallel/getChatByGroupID', data)
+            .post('http://35.198.245.254/parallel/getChatByGroupID', data)
             .then(response => {
                 this.setState({ data: response.data });
                 this.sortData();
