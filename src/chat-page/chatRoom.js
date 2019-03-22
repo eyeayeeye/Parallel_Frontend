@@ -63,7 +63,8 @@ class ChatRoom extends Component {
                 username: this.props.username,
                 userid: this.props.uid,
                 message: this.state.input,
-                groupid: this.props.gid
+                groupid: this.props.gid,
+                groupname: this.props.groupName
             });
             this.scrollToBottom();
             this.setState({ input: '' });
