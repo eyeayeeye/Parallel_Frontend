@@ -50,8 +50,9 @@ class ChatList extends Component {
             // this.updateChat(data);
         });
         this.socket.on('leave', data => {
-            // console.log(655555);
-            // console.log('leave', data);
+            console.log('leaveeee', data);
+            if (data.userid !== this.props.uid) return;
+            console.log('leave', data);
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
 
             const sorted_filtered = filtered.sort((item1, item2) => item1.timestamp >= item2.timestamp);
@@ -62,7 +63,10 @@ class ChatList extends Component {
         });
         this.socket.on('joinGroupChat', data => {
             // console.log(655555);
-            // console.log('data', data);
+            console.log('joinnnn', data);
+            if (data.joinuserid !== this.props.uid) return;
+            console.log('data', data);
+
             const filtered = this.state.data.filter(group => group.groupid !== data.groupid);
             // console.log('filter', filtered);
 
